@@ -1,0 +1,22 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 40px;
+    max-width: 400px;
+  }
+  input[type="file"] {
+    margin-bottom: 20px;
+  }
+  button {
+    padding: 10px 20px;
+    font-size: 16px;
+  }
+  #response {
+    margin-top: 20px;
+    white-space: pre-wrap;
+    background: #f0f0f0;
+    padding: 10px;
+    border-radius: 6px;
+    max-height: 200px;
+    overflow-y: auto;
+  }
+  
