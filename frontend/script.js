@@ -25,9 +25,12 @@ form.addEventListener('submit', async (e) => {
         }
 
         const data = await res.json();
+        const actionsUrl = data.downloadTranscriptUrl.replace('.txt', '_actions.json');
         responseDiv.innerHTML = `
   ✅ File cleaned successfully!<br>
-  <a href="${data.downloadUrl}" download>⬇️ Download Cleaned File</a>
+  <a href="${data.downloadAudioUrl}" download>⬇️ Download Cleaned Audio</a><br>
+  <a href="${data.downloadTranscriptUrl}" download>📝 Download Transcript with Actions</a><br>
+  <a href="${actionsUrl}" download>🎬 Download Action Timeline (JSON)</a>
 `;
     } catch (err) {
         responseDiv.textContent = `Error: ${err.message}`;

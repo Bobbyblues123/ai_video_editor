@@ -37,6 +37,7 @@ app.post('/upload', upload.single('audio'), (req, res) => {
     const baseFilename = path.parse(req.file.filename).name;
     const cleanedFilename = `${baseFilename}_cleaned.wav`;
     const transcriptFilename = `${baseFilename}_cleaned.txt`;
+    const actionsFilename = `${baseFilename}_cleaned_actions.json`;
 
     const outputPath = path.join(outputDir, cleanedFilename);
     const scriptPath = path.join(__dirname, 'services', 'cleanAudio.py');
@@ -50,10 +51,16 @@ app.post('/upload', upload.single('audio'), (req, res) => {
         }
 
         console.log('✅ Script output:\n', stdout);
+        
+        // Check if action file exists
+        const actionsPath = path.join(outputDir, actionsFilename);
+        const hasActions = fs.existsSync(actionsPath);
+        
         res.json({ 
             message: 'Audio cleaned and transcribed',
             downloadAudioUrl: `/output/${cleanedFilename}`,
-            downloadTranscriptUrl: `/output/${transcriptFilename}`
+            downloadTranscriptUrl: `/output/${transcriptFilename}`,
+            downloadActionsUrl: hasActions ? `/output/${actionsFilename}` : null
         });
     });
 });
